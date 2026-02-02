@@ -1,0 +1,66 @@
+{
+  "name": "compose-claudecode",
+  "version": "1.0.0",
+  "description": "Multi-model agent orchestration framework for Claude Code",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "bin": {
+    "ecc": "dist/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "agents",
+    "commands",
+    "config",
+    "domain",
+    "hooks",
+    "rules",
+    "skills",
+    ".claude-plugin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/affaan-m/compose-claudecode.git"
+  },
+  "homepage": "https://github.com/affaan-m/compose-claudecode#readme",
+  "author": "affaan-m",
+  "license": "MIT",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "ai",
+    "agent",
+    "multi-agent",
+    "orchestration",
+    "domain-driven"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
