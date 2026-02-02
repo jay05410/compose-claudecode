@@ -1,0 +1,37 @@
+bundle:
+  name: "Feature Development Team"
+  icon: "🚀"
+  description: "Full-stack team for implementing new features from design to deployment"
+  use_case: "New features, major enhancements, greenfield development"
+
+agents:
+  - id: "planner"
+    role: "Lead planning and requirements"
+  - id: "architect"
+    role: "Design system architecture"
+  - id: "frontend-engineer"
+    role: "Implement UI components"
+  - id: "backend-engineer"
+    role: "Implement API and business logic"
+  - id: "test-engineer"
+    role: "Write comprehensive tests"
+
+skills:
+  - "frontend-patterns"
+  - "backend-patterns"
+  - "tdd-workflow"
+
+workflow: "feature-development"
+
+party_prompts:
+  planning: |
+    Team, we're starting a new feature: {feature_name}.
+    Planner: Break down the requirements.
+    Architect: Consider the technical approach.
+    Let's discuss the best way to implement this.
+  
+  review: |
+    Team, let's review what we've built so far.
+    Frontend: Status of UI components?
+    Backend: Status of API endpoints?
+    Test Engineer: Test coverage status?

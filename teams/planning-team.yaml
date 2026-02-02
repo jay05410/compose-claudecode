@@ -1,0 +1,33 @@
+bundle:
+  name: "Planning & Architecture Team"
+  icon: "📐"
+  description: "Strategic planning team for system design and architecture decisions"
+  use_case: "System design, architecture decisions, technical planning"
+
+agents:
+  - id: "orchestrator"
+    role: "Coordinate planning process"
+  - id: "planner"
+    role: "Break down complex requirements"
+  - id: "architect"
+    role: "Design system architecture"
+  - id: "database-architect"
+    role: "Design data models and schemas"
+  - id: "api-designer"
+    role: "Design API contracts"
+
+skills: []
+
+party_prompts:
+  design: |
+    Team, we need to design the architecture for: {project_description}
+    Planner: What are the key requirements?
+    Architect: What patterns should we use?
+    Database Architect: What's the data model?
+    API Designer: What endpoints do we need?
+    Let's create a solid technical foundation.
+  
+  adr: |
+    Team, we need to make an architectural decision: {decision_topic}
+    Each of you, please share your perspective on the options.
+    We'll document this as an ADR.

@@ -1,0 +1,28 @@
+bundle:
+  name: "Backend Development Team"
+  icon: "⚙️"
+  description: "Specialized team for backend development and infrastructure"
+  use_case: "API development, database work, backend-heavy features"
+
+agents:
+  - id: "backend-engineer"
+    role: "Implement API and business logic"
+  - id: "database-architect"
+    role: "Design and optimize database"
+  - id: "devops-engineer"
+    role: "Handle deployment and infrastructure"
+
+skills:
+  - "backend-patterns"
+
+party_prompts:
+  design: |
+    Team, we're building: {api_description}
+    Backend Engineer: What's the implementation approach?
+    Database Architect: What's the data model?
+    DevOps: Any deployment considerations?
+    Let's build something scalable and maintainable.
+  
+  optimize: |
+    Team, we have a performance issue: {issue_description}
+    Let's identify the bottleneck and fix it together.

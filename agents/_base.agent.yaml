@@ -1,0 +1,145 @@
+# Base Agent Configuration
+# All agents inherit these common settings and guidelines
+
+agent:
+  metadata:
+    id: "_base"
+    name: "Base"
+    title: "Base Agent Guidelines"
+    module: "core"
+    hasSidecar: false
+
+  config:
+    stack_reference: "config/stack.yaml"
+    output_language: "English"
+    format: "Markdown with clear headers"
+
+  mcp_integration:
+    # Model assignments are managed in config/stack.yaml (Single Source of Truth)
+    # This section defines HOW to invoke each model, not WHICH agent uses WHICH model
+    mapping:
+      opus:
+        invoke: "claude"  # Built-in Claude Opus 4.5
+        model: "claude-opus-4-20250514"
+        use_for: ["orchestration", "planning", "multi-agent-coordination"]
+      sonnet:
+        invoke: "claude"  # Built-in Claude Sonnet 4.5
+        model: "claude-sonnet-4-20250514"
+        use_for: ["implementation", "utilities", "support-tasks"]
+      gemini-pro:
+        invoke: "mcp__gemini__generateContent"
+        model: "gemini-3-pro"
+        use_for: ["architecture", "large-context", "frontend-development", "visual-ui"]
+      gemini-flash:
+        invoke: "mcp__gemini__generateContent"
+        model: "gemini-3-flash"
+        use_for: ["documentation", "guides", "image-analysis", "pdf-analysis", "diagram-analysis"]
+      glm:
+        invoke: "mcp__glm__chat"
+        model: "glm-4.7"
+        use_for: ["code-generation", "token-efficient-implementation"]
+      gpt5:
+        invoke: "mcp__openai__chat"
+        model: "gpt-5.2"
+        use_for: ["analysis", "design", "verification", "code-review", "security-analysis"]
+
+  delegation:
+    prompt_template: |
+      **TASK**: {task}
+      **EXPECTED OUTCOME**: {expected_outcome}
+      **TOOLS**: {tools}
+      **MUST DO**: {requirements}
+      **MUST NOT DO**: {forbidden}
+      **CONTEXT**: {context}
+
+  available_agents:
+    - id: "explore"
+      purpose: "Codebase search"
+      when: "Finding code, understanding structure"
+    - id: "librarian"
+      purpose: "External docs"
+      when: "Library usage, best practices"
+    - id: "oracle"
+      purpose: "Deep analysis"
+      when: "Architecture, debugging"
+
+  tools:
+    read: ["Read", "Grep", "Glob"]
+    edit: ["Edit"]
+    write: ["Write"]
+    execute: ["Bash"]
+    analyze: ["ast-grep", "lsp_diagnostics"]
+
+  standards:
+    code_quality:
+      file_size:
+        typical: "200-400 lines"
+        max: 800
+      function_size:
+        max_lines: 50
+      nesting:
+        max_depth: 4
+      coverage:
+        min_percent: 80
+
+    immutability:
+      enforce: true
+      examples:
+        wrong: |
+          user.name = 'New'
+          items.push(newItem)
+        correct: |
+          const updated = { ...user, name: 'New' }
+          const newItems = [...items, newItem]
+
+    forbidden:
+      - "console.log in production"
+      - "any type without justification"
+      - "hardcoded secrets"
+      - "mutation patterns"
+      - "as any"
+      - "@ts-ignore"
+      - "@ts-expect-error"
+
+  evidence_first_protocol:
+    description: |
+      NO CLAIMS WITHOUT FRESH EVIDENCE
+      Prevent hallucination by forcing tool use for every assertion.
+      Inspired by oh-my-claudecode's verification protocol.
+
+    process:
+      step1_identify: "What needs to be verified?"
+      step2_execute: "Use tool (Read/Grep/LSP/Bash) to get evidence"
+      step3_cite: "Include file:line citation"
+      step4_assert: "ONLY THEN make the claim"
+
+    examples:
+      wrong: |
+        ❌ "The API endpoint is at /api/users"
+        (No evidence - might be hallucinated)
+
+      correct: |
+        ✅ "The API endpoint is at /api/users (src/routes/api.ts:42)"
+        Evidence: Read src/routes/api.ts, found export at line 42
+
+    rules:
+      - "Never claim file content without Read/Grep"
+      - "Never claim function exists without Grep"
+      - "Never claim error cause without reading logs/diagnostics"
+      - "Always cite: file:line for code references"
+      - "If unsure → VERIFY with tools, don't guess"
+
+    enforcement:
+      - "Before stating 'X exists' → Grep for X"
+      - "Before stating 'X is at line Y' → Read file"
+      - "Before stating 'error is Z' → Read error output"
+      - "Before stating 'test passes' → Run test"
+
+  verification:
+    before_complete:
+      - "lsp_diagnostics clean"
+      - "Tests pass"
+      - "No console.log"
+      - "No hardcoded secrets"
+      - "Follows existing patterns"
+      - "All claims backed by evidence (evidence_first_protocol)"

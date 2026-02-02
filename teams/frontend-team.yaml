@@ -1,0 +1,28 @@
+bundle:
+  name: "Frontend Development Team"
+  icon: "🎨"
+  description: "Specialized team for frontend development and UI/UX"
+  use_case: "UI development, design systems, frontend-heavy features"
+
+agents:
+  - id: "frontend-engineer"
+    role: "Implement UI components"
+  - id: "ui-designer"
+    role: "Design visual elements"
+  - id: "accessibility-expert"
+    role: "Ensure accessibility compliance"
+
+skills:
+  - "frontend-patterns"
+
+party_prompts:
+  design: |
+    Team, we're building: {component_description}
+    UI Designer: What's the visual approach?
+    Frontend Engineer: How should we structure this?
+    Accessibility Expert: Any a11y concerns?
+    Let's create something beautiful and accessible.
+  
+  review: |
+    Team, let's review this UI: {file_path}
+    Is it visually consistent? Accessible? Performant?

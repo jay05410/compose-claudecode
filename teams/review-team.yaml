@@ -1,0 +1,26 @@
+bundle:
+  name: "Code Review Team"
+  icon: "🔍"
+  description: "Quality assurance team for comprehensive code review"
+  use_case: "PR reviews, security audits, pre-deployment checks"
+
+agents:
+  - id: "code-reviewer"
+    role: "Review code quality and best practices"
+  - id: "security-reviewer"
+    role: "Identify security vulnerabilities"
+  - id: "performance-optimizer"
+    role: "Analyze performance implications"
+
+skills:
+  - "security-review"
+
+workflow: "code-review"
+
+party_prompts:
+  review: |
+    Team, we need to review these changes: {scope}
+    Code Reviewer: Check quality and patterns.
+    Security Reviewer: Look for vulnerabilities.
+    Performance: Any concerns with efficiency?
+    Let's ensure this is production-ready.

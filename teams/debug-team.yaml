@@ -1,0 +1,27 @@
+bundle:
+  name: "Debug & Resolution Team"
+  icon: "🔧"
+  description: "Troubleshooting team for complex bugs and issues"
+  use_case: "Complex bugs, production issues, mysterious errors"
+
+agents:
+  - id: "error-resolver"
+    role: "Analyze and resolve errors"
+  - id: "performance-optimizer"
+    role: "Identify performance issues"
+  - id: "security-reviewer"
+    role: "Check for security implications"
+
+skills: []
+
+party_prompts:
+  debug: |
+    Team, we have an issue: {error_description}
+    Error Resolver: What's the root cause?
+    Performance: Is this a performance issue?
+    Security: Any security implications?
+    Let's solve this systematically.
+  
+  postmortem: |
+    Team, let's do a postmortem on: {incident_description}
+    What went wrong? How do we prevent it?

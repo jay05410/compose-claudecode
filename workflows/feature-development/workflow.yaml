@@ -1,0 +1,102 @@
+name: feature-development
+description: Complete feature development workflow from planning to deployment
+version: "1.0"
+
+config_source: "config/stack.yaml"
+
+metadata:
+  icon: "🚀"
+  estimated_time: "1-4 hours"
+  complexity: "moderate-to-complex"
+
+variables:
+  feature_name: "{user_input}"
+  output_folder: "_output/features/{feature_name}"
+
+phases:
+  - phase: 1
+    name: "Analysis & Planning"
+    parallel: true
+    agents:
+      - orchestrator
+      - planner
+    checkpoint: true
+    checkpoint_reason: "Review plan before implementation"
+
+  - phase: 2
+    name: "Design"
+    parallel: true
+    agents:
+      - architect
+      - database-architect
+    checkpoint: true
+    checkpoint_reason: "Approve architecture before coding"
+
+  - phase: 3
+    name: "Implementation"
+    parallel: false
+    agents:
+      - backend-engineer
+      - frontend-engineer
+    checkpoint: false
+
+  - phase: 4
+    name: "Verification"
+    parallel: true
+    agents:
+      - test-engineer
+      - code-reviewer
+      - security-reviewer
+    checkpoint: true
+    checkpoint_reason: "Final review before completion"
+
+instructions_path: "./steps"
+
+steps:
+  - id: "step-01"
+    file: "step-01-init.md"
+    name: "Initialize Feature"
+    required: true
+
+  - id: "step-02"
+    file: "step-02-requirements.md"
+    name: "Gather Requirements"
+    required: true
+
+  - id: "step-03"
+    file: "step-03-architecture.md"
+    name: "Design Architecture"
+    required: true
+    checkpoint: true
+
+  - id: "step-04"
+    file: "step-04-implementation.md"
+    name: "Implement Feature"
+    required: true
+
+  - id: "step-05"
+    file: "step-05-testing.md"
+    name: "Write Tests"
+    required: true
+
+  - id: "step-06"
+    file: "step-06-review.md"
+    name: "Code Review"
+    required: true
+    checkpoint: true
+
+  - id: "step-07"
+    file: "step-07-completion.md"
+    name: "Complete Feature"
+    required: true
+
+output:
+  template: "./feature-output.template.md"
+  default_path: "{output_folder}/{feature_name}-feature.md"
+
+workflow_rules:
+  - "Steps execute in exact numerical order (1, 2, 3...)"
+  - "Optional steps: Ask user unless yolo mode active"
+  - "At checkpoints: Save content, discuss with user, wait for proceed"
+  - "Never skip required steps"
+  - "Update frontmatter stepsCompleted after each step"
