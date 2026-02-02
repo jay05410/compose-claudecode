@@ -1,0 +1,34 @@
+# Project Configuration Template
+# Copy to .claude/project-config.yaml and customize
+
+project:
+  name: ""
+  description: ""
+
+# Stack Configuration
+# Set only what you want to specify explicitly
+# Unset values will be auto-detected
+stack:
+  language: ""           # typescript | python | go | java | kotlin | rust
+  frontend: ""           # react | vue | svelte | angular | none
+  frontend_framework: "" # nextjs | nuxt | sveltekit | vite | none
+  backend: ""            # node | python | go | java | kotlin | rust
+  database: ""           # postgresql | mysql | mongodb | sqlite
+
+# Directory Structure
+# Map directories to their purposes
+structure:
+  # src/app: "App router pages and API routes"
+  # src/components: "React components"
+  # src/lib: "Utilities and helpers"
+
+# Reference Documents
+# Planning docs, specs, or design files to analyze
+references: []
+  # - docs/PRD.md
+  # - docs/API-spec.md
+
+# Settings
+settings:
+  language: english      # Output language for generated files
+  test_coverage: 80      # Minimum test coverage percentage

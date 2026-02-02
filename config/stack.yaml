@@ -1,0 +1,414 @@
+# =============================================================================
+# STACK CONFIGURATION
+# =============================================================================
+# Centralized tech stack versions and configuration.
+# All agents and skills reference this file instead of hardcoding versions.
+#
+# HOW TO USE:
+# 1. Copy this file to ~/.claude/config/stack.yaml
+# 2. Set your active stacks in the 'active' section below
+# 3. Agents will automatically adapt to your selected stack
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# USER PREFERENCES
+# -----------------------------------------------------------------------------
+# Personal settings that affect how agents interact with you.
+user:
+  name: "Developer"                    # How agents address you
+  skill_level: "intermediate"          # beginner | intermediate | expert
+  communication_language: "English"    # Language for agent responses
+  document_language: "English"         # Language for generated documents
+  testing_preference: "optional"       # tdd_required | optional | disabled
+
+# Skill Level Effects:
+#   beginner:     Detailed explanations, step-by-step guidance, more examples
+#   intermediate: Balanced detail, assume basic knowledge
+#   expert:       Concise responses, technical language, skip obvious explanations
+
+# Testing Preference:
+#   tdd_required: Write tests for ALL code (strict TDD, red-green-refactor)
+#   optional:     Pragmatic testing - only test complex logic, critical paths (Kent Beck approach)
+#   disabled:     Skip all test generation (manual testing only)
+#
+# When "optional" (default):
+#   ✅ Write tests for: Complex business logic, algorithms, security code, critical paths
+#   ❌ Skip tests for: Simple CRUD, getters/setters, static UI, boilerplate
+#   → Saves tokens while maintaining confidence in critical code
+
+# -----------------------------------------------------------------------------
+# ACTIVE STACK SELECTION
+# -----------------------------------------------------------------------------
+# Set your project's active stack here. Agents will adapt accordingly.
+active:
+  language: "typescript"        # typescript | python | go | java | kotlin | rust | cpp | c
+  frontend: "react"             # react | vue | svelte | angular | none
+  frontend_framework: "nextjs"  # nextjs | vite | nuxt | sveltekit | none
+  backend: "node"               # node | python | go | java | kotlin | rust | cpp | c
+  database: "postgresql"        # postgresql | mysql | mongodb | sqlite
+  
+# -----------------------------------------------------------------------------
+# LANGUAGE STACKS
+# -----------------------------------------------------------------------------
+languages:
+  typescript:
+    version: "5.x"
+    runtime: "Node.js 22.x"
+    package_manager: ["npm", "pnpm", "yarn", "bun"]
+    linter: "eslint"
+    formatter: "prettier"
+    test_runner: ["vitest", "jest"]
+    build_check: "tsc --noEmit"
+    
+  python:
+    version: "3.12"
+    package_manager: ["uv", "pip", "poetry", "pdm"]
+    linter: "ruff"
+    formatter: "ruff format"
+    type_checker: "pyright"
+    test_runner: ["pytest"]
+    build_check: "pyright"
+    
+  go:
+    version: "1.22"
+    package_manager: "go mod"
+    linter: "golangci-lint"
+    formatter: "gofmt"
+    test_runner: "go test"
+    build_check: "go build"
+    
+  java:
+    version: "21"
+    build_tool: ["gradle", "maven"]
+    linter: "checkstyle"
+    test_runner: ["junit5"]
+    build_check: "gradle build"
+    
+  kotlin:
+    version: "2.0"
+    build_tool: ["gradle"]
+    linter: "ktlint"
+    test_runner: ["junit5", "kotest"]
+    build_check: "gradle build"
+    
+  rust:
+    version: "1.75"
+    package_manager: "cargo"
+    linter: "clippy"
+    formatter: "rustfmt"
+    test_runner: "cargo test"
+    build_check: "cargo build"
+    
+  cpp:
+    version: "C++20"
+    build_tool: ["cmake", "make", "bazel"]
+    linter: "clang-tidy"
+    formatter: "clang-format"
+    test_runner: ["gtest", "catch2"]
+    build_check: "cmake --build ."
+    
+  c:
+    version: "C17"
+    build_tool: ["cmake", "make"]
+    linter: "clang-tidy"
+    formatter: "clang-format"
+    test_runner: ["check", "unity"]
+    build_check: "make"
+
+# -----------------------------------------------------------------------------
+# FRONTEND FRAMEWORKS
+# -----------------------------------------------------------------------------
+frontend:
+  react:
+    version: "19"
+    meta_frameworks: ["nextjs", "vite", "remix"]
+    state_management: ["zustand", "jotai", "tanstack-query"]
+    styling: ["tailwind", "css-modules", "styled-components"]
+    testing: ["vitest", "react-testing-library", "playwright"]
+    
+  vue:
+    version: "3"
+    meta_frameworks: ["nuxt", "vite"]
+    state_management: ["pinia"]
+    styling: ["tailwind", "unocss", "css-modules"]
+    testing: ["vitest", "vue-test-utils", "playwright"]
+    
+  svelte:
+    version: "5"
+    meta_frameworks: ["sveltekit", "vite"]
+    state_management: ["svelte/store", "nanostores"]
+    styling: ["tailwind", "unocss"]
+    testing: ["vitest", "playwright"]
+    
+  angular:
+    version: "18"
+    state_management: ["ngrx", "signals"]
+    styling: ["tailwind", "scss"]
+    testing: ["jasmine", "karma", "playwright"]
+
+# -----------------------------------------------------------------------------
+# BACKEND FRAMEWORKS
+# -----------------------------------------------------------------------------
+backend:
+  node:
+    frameworks: ["nextjs-api", "express", "fastify", "hono", "nest"]
+    validation: "zod"
+    orm: ["prisma", "drizzle", "typeorm"]
+    
+  python:
+    frameworks: ["fastapi", "django", "flask", "litestar"]
+    validation: "pydantic"
+    orm: ["sqlalchemy", "tortoise", "django-orm"]
+    
+  go:
+    frameworks: ["gin", "echo", "fiber", "chi"]
+    validation: "validator"
+    orm: ["gorm", "sqlc", "ent"]
+    
+  java:
+    frameworks: ["spring-boot", "quarkus", "micronaut"]
+    validation: "jakarta-validation"
+    orm: ["jpa", "hibernate", "jooq"]
+    
+  kotlin:
+    frameworks: ["ktor", "spring-boot"]
+    validation: "konform"
+    orm: ["exposed", "ktorm", "jpa"]
+    
+  rust:
+    frameworks: ["axum", "actix-web", "rocket"]
+    validation: "validator"
+    orm: ["diesel", "sea-orm", "sqlx"]
+
+# -----------------------------------------------------------------------------
+# DATABASE
+# -----------------------------------------------------------------------------
+database:
+  postgresql:
+    providers: ["supabase", "neon", "railway", "self-hosted"]
+    features: ["RLS", "full-text-search", "jsonb"]
+    
+  mysql:
+    providers: ["planetscale", "railway", "self-hosted"]
+    
+  mongodb:
+    providers: ["atlas", "self-hosted"]
+    
+  sqlite:
+    providers: ["turso", "local"]
+
+# -----------------------------------------------------------------------------
+# AI/ML MODELS
+# -----------------------------------------------------------------------------
+ai:
+  providers:
+    claude:
+      models: ["claude-sonnet-4-20250514", "claude-opus-4-20250514"]
+      use_cases: ["orchestration", "planning", "general-implementation"]
+      cost: "medium-high"
+      context: "200K"
+    gemini:
+      models: ["gemini-3-pro", "gemini-3-flash"]
+      variants:
+        pro:
+          use_cases: ["architecture", "large-context", "frontend-development", "visual-ui"]
+          context: "2M"
+          cost: "medium"
+        flash:
+          use_cases: ["documentation", "guides", "image-analysis", "pdf-analysis", "diagram-analysis"]
+          context: "1M"
+          cost: "very-low"
+    glm:
+      models: ["glm-4.7"]
+      use_cases: ["code-generation", "token-efficient-implementation"]
+      cost: "very-low"
+      context: "200K"
+      token_savings: "30% vs other models"
+    openai:
+      models: ["gpt-5.2"]
+      use_cases: ["analysis", "design", "verification", "code-review", "security-analysis", "performance-optimization"]
+      cost: "high"
+      context: "256K"
+  embeddings:
+    model: "text-embedding-3-small"
+    dimensions: 1536
+
+# -----------------------------------------------------------------------------
+# MCP SERVERS
+# -----------------------------------------------------------------------------
+# These MCP servers enable multi-model orchestration.
+# Configure in ~/.claude.json (global) or .claude.json (project)
+mcp:
+  # MCP server configurations for multi-model orchestration
+  # See mcp-configs/mcp-servers.json for full server setup
+  gemini:
+    package: "github:aliargun/mcp-server-gemini"
+    env_var: "GEMINI_API_KEY"
+    models: ["gemini-3-pro", "gemini-3-flash"]
+    description: "Gemini 3 Pro (frontend, 2M context) + Flash (docs, visual analysis)"
+  openai:
+    package: "@mzxrai/mcp-openai@latest"
+    env_var: "OPENAI_API_KEY"
+    models: ["gpt-5.2"]
+    description: "GPT-5.2 - Analysis, design, verification, review"
+  glm:
+    package: "@zhipuai/mcp-server"
+    env_var: "ZHIPUAI_API_KEY"
+    models: ["glm-4.7"]
+    description: "GLM-4.7 - Code generation specialist (30% token savings)"
+
+# -----------------------------------------------------------------------------
+# AGENT MODEL ASSIGNMENTS (SINGLE SOURCE OF TRUTH)
+# -----------------------------------------------------------------------------
+# All agents reference this configuration. Do NOT hardcode model assignments elsewhere.
+#
+# TIERED AGENT SYSTEM (inspired by oh-my-claudecode):
+# Each agent has 3 tiers for automatic cost optimization:
+# - LOW tier:  Haiku ($0.25/1M) - Simple, repetitive tasks
+# - MED tier:  Sonnet ($3/1M) - Standard complexity (default)
+# - HIGH tier: Opus ($15/1M) - Complex reasoning, critical decisions
+#
+# Orchestrator selects tier based on task complexity.
+# Estimated savings: 40-50% compared to always using Opus/Sonnet.
+#
+# Model Selection Strategy (Token Efficiency + Performance):
+# - opus: Critical planning & orchestration (best multi-agent coordination)
+# - gemini: Large context needs (2M tokens), architecture, UI
+# - glm: Code generation (30% token savings), cost-efficient implementation
+# - gpt5: Analysis, design, verification (advanced reasoning)
+# - gemini-flash: Documentation, visual analysis (fast & cheap)
+# - sonnet: General implementation, documentation (built-in, no extra cost)
+# - haiku: Simple tasks, quick operations (built-in, very cheap)
+#
+agent_models:
+  # === TIER 1: Critical Planning & Orchestration ===
+  orchestrator:
+    low: "sonnet"              # Simple routing decisions
+    medium: "opus"             # Standard orchestration (default)
+    high: "opus"               # Complex multi-agent coordination
+  planner:
+    low: "sonnet"              # Simple feature breakdown
+    medium: "opus"             # Standard planning (default)
+    high: "opus"               # Complex long-horizon planning
+
+  # === TIER 2: Architecture & Large Context ===
+  architect:
+    low: "sonnet"              # Simple architecture review
+    medium: "gemini-pro"       # Standard system design (default)
+    high: "gemini-pro"         # Complex architecture with 2M context
+  database-architect:
+    low: "haiku"               # Simple query optimization
+    medium: "gemini-pro"       # Standard schema design (default)
+    high: "gemini-pro"         # Complex data modeling
+  domain-architect:
+    low: "sonnet"              # Simple domain modeling
+    medium: "gemini-pro"       # Standard DDD (default)
+    high: "gemini-pro"         # Complex domain with full context
+
+  # === TIER 3: Frontend Development ===
+  frontend-engineer:
+    low: "glm"                 # Simple UI tweaks, styling changes
+    medium: "gemini-pro"       # Standard component development (default)
+    high: "gemini-pro"         # Complex interactive UI, state management
+  ui-designer:
+    low: "gemini-flash"        # Simple design adjustments
+    medium: "gemini-pro"       # Standard design systems (default)
+    high: "gemini-pro"         # Complex visual design, branding
+  accessibility-expert:
+    low: "haiku"               # Simple a11y checks (ARIA labels)
+    medium: "gemini-pro"       # Standard accessibility audit (default)
+    high: "gemini-pro"         # Complex screen reader optimization
+
+  # === TIER 4: Code Generation ===
+  backend-engineer:
+    low: "haiku"               # Simple CRUD endpoints
+    medium: "glm"              # Standard API development (default)
+    high: "glm"                # Complex business logic
+  api-designer:
+    low: "haiku"               # Simple REST endpoint design
+    medium: "glm"              # Standard API design (default)
+    high: "opus"               # Complex GraphQL schema, microservices
+  test-engineer:
+    low: "haiku"               # Simple unit tests
+    medium: "glm"              # Standard test coverage (default)
+    high: "opus"               # Complex E2E scenarios, edge cases
+
+  # === TIER 5: Analysis, Review & Verification ===
+  code-reviewer:
+    low: "haiku"               # Simple style checks, linting
+    medium: "gpt5"             # Standard code review (default)
+    high: "gpt5"               # Complex architecture review
+  security-reviewer:
+    low: "sonnet"              # Simple vulnerability scan
+    medium: "gpt5"             # Standard security audit (default)
+    high: "gpt5"               # Complex threat modeling
+  performance-optimizer:
+    low: "sonnet"              # Simple performance tips
+    medium: "gpt5"             # Standard optimization (default)
+    high: "gpt5"               # Complex profiling, bottleneck analysis
+  error-resolver:
+    low: "sonnet"              # Simple error fixes
+    medium: "gpt5"             # Standard debugging (default)
+    high: "opus"               # Complex root cause analysis (circuit breaker escalation)
+  researcher:
+    low: "gemini-flash"        # Simple documentation lookup
+    medium: "gpt5"             # Standard research (default)
+    high: "gpt5"               # Complex library comparison, best practices
+
+  # === TIER 6: Documentation & Visual Analysis ===
+  doc-updater:
+    low: "haiku"               # Simple typo fixes, updates
+    medium: "gemini-flash"     # Standard documentation (default)
+    high: "gemini-flash"       # Complex technical writing
+  publisher:
+    low: "haiku"               # Simple changelog updates
+    medium: "gemini-flash"     # Standard release notes (default)
+    high: "gemini-pro"         # Complex release with visual analysis
+
+  # === TIER 7: Support & Utilities ===
+  refactor-cleaner:
+    low: "haiku"               # Simple code cleanup
+    medium: "sonnet"           # Standard refactoring (default)
+    high: "opus"               # Complex restructuring
+  devops-engineer:
+    low: "haiku"               # Simple config changes
+    medium: "sonnet"           # Standard CI/CD (default)
+    high: "opus"               # Complex infrastructure design
+  e2e-runner:
+    low: "haiku"               # Simple test execution
+    medium: "sonnet"           # Standard E2E analysis (default)
+    high: "sonnet"             # Complex test debugging
+  tdd-guide:
+    low: "haiku"               # Simple TDD tips
+    medium: "sonnet"           # Standard TDD guidance (default)
+    high: "opus"               # Complex TDD architecture
+  domain-sync:
+    low: "haiku"               # Simple sync updates
+    medium: "sonnet"           # Standard domain sync (default)
+    high: "sonnet"             # Complex consistency checks
+
+  # === NEW: Project Manager ===
+  pm:
+    low: "haiku"               # Simple status updates
+    medium: "sonnet"           # Standard project tracking (default)
+    high: "opus"               # Complex strategic planning
+
+# -----------------------------------------------------------------------------
+# CODING STANDARDS
+# -----------------------------------------------------------------------------
+standards:
+  file_size:
+    typical: 200-400
+    max: 800
+  function_size:
+    max_lines: 50
+  nesting:
+    max_depth: 4
+  test_coverage:
+    min_percent: 80
+  commit_format: "conventional"
+  forbidden:
+    - "console.log in production"
+    - "any type without justification"
+    - "hardcoded secrets"
+    - "mutation patterns"
