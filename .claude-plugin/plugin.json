@@ -1,0 +1,6 @@
+{
+  "name": "compose-claudecode",
+  "version": "1.0.0",
+  "description": "Multi-model agent orchestration framework for Claude Code",
+  "skills": "./skills/"
+}

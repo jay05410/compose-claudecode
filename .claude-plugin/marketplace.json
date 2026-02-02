@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ecc",
+  "description": "Everything Claude Code - Multi-model agent orchestration with intelligent routing, domain initialization, and 20+ specialized agents",
+  "owner": {
+    "name": "affaan-m",
+    "email": ""
+  },
+  "plugins": [
+    {
+      "name": "compose-claudecode",
+      "description": "Multi-model agent orchestration framework with intelligent model routing, domain-driven project setup, 20+ specialized agents, and comprehensive skill library.",
+      "version": "1.0.0",
+      "author": {
+        "name": "affaan-m"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/affaan-m/compose-claudecode",
+      "tags": ["multi-agent", "orchestration", "domain-driven", "project-setup", "model-routing"]
+    }
+  ]
+}
